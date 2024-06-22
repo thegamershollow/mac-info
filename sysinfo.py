@@ -56,7 +56,7 @@ def macVer():
 	elif verNum == "10.15":
 		verString = "Catalina"
 	else:
-		verString = "notOSX"
+		verString = "Not running Mac OS 10"
 	return f"Mac OS X: {verString} ({vernum})"
 ## get computer architecture
 
