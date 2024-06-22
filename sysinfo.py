@@ -76,11 +76,11 @@ ram  = os.popen('system_profiler SPHardwareDataType | grep "Memory:"').readlines
 
 cores = os.popen('system_profiler SPHardwareDataType | grep Cores:').readlines()
 
-processor = os.popen('system_profiler SPHardwareDataType | grep Processor\ Name:').readlines()
+processor = os.popen('system_profiler SPHardwareDataType | grep Processor\ Name').readlines()
 
 macModel = os.popen('system_profiler SPHardwareDataType | grep Model\ Identifier:').readlines()
 
-cpuSpeed = os.popen('system_profiler SPHardwareDataType | grep Processor\ Speed:').readlines()
+cpuSpeed = os.popen('system_profiler SPHardwareDataType | grep Processor\ Speed').readlines()
 
 gpu = os.popen('system_profiler SPDisplaysDataType | grep Chipset').readlines()
 
@@ -97,9 +97,9 @@ macModel = macModel.strip( )
 
 cpuSpeed = cpuSpeed[0].strip( "Processor Speed: \n")
 
-gpu = gpu[0].strip( "Chipset Model: \n")
+gpu = gpu[0].strip( "Chipset Model Dynamic, Max): \n")
 
-vram = vram[0].strip( "VRAM (Total): \n")
+vram = vram[0].strip( "VRAM (Dynamic, Max): \n")
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
