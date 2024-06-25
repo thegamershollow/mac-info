@@ -1,23 +1,18 @@
-# imports
+import psutil
 import os
 import platform
 import sys
-import subprocess
 import socket
-import psutil
 
-
-# check is the current operating system is mac os
+# checks if the os is mac os
 if platform.system() != "Darwin":
-	sys.exit("You are not running Mac OS")
+    sys.exit("You are not running Mac OS")
 
 # clears the terminal
 os.system("Clear")
 
-# main program stuff
 
-# get system information
-
+# get mac os version
 def macVer():
 	macVer = platform.mac_ver()
 	vernum = macVer[0]
@@ -58,56 +53,58 @@ def macVer():
 	else:
 		verString = "Not running Mac OS 10"
 	return f"Mac OS X: {verString} ({vernum})"
-## get computer architecture
 
+# Architecture
 arch = platform.architecture()
 
+# Hostname
 host = platform.node()
 
-platString = platform.platform()
-
+# CPU Architecture
 cpuArch = platform.processor()
 
+# Python version
 pythonVer = platform.python_version()
 
+# mac os version
 osVer = macVer()
 
-ram  = os.popen('system_profiler SPHardwareDataType | grep "Memory:"').readlines()
+# CPU Count
+cpuCount = psutil.cpu_count()
 
-cores = os.popen('system_profiler SPHardwareDataType | grep Cores:').readlines()
+# CPU Frequency
+cpuFreq = psutil.cpu_freq()[2]
 
+# Total RAM
+ram = psutil.virtual_memory()[0]
+totalRam = str(ram // 1000000000)
+totalRam = totalRam+" GB"
+
+# CPU Type
 processor = os.popen('system_profiler SPHardwareDataType | grep Processor\ Name').readlines()
-
-macModel = os.popen('system_profiler SPHardwareDataType | grep Model\ Identifier:').readlines()
-
-cpuSpeed = os.popen('system_profiler SPHardwareDataType | grep Processor\ Speed').readlines()
-
-gpu = os.popen('system_profiler SPDisplaysDataType | grep Chipset').readlines()
-
-vram = os.popen('system_profiler SPDisplaysDataType | grep VRAM').readlines()
-
-ram = ram[0].strip( "Memory: \n")
-
-cores = cores[0].strip( "Total Number of Cores: \n")
-
 processor = processor[0].strip( "Processor Name: \n")
 
+# Mac Model
+macModel = os.popen('system_profiler SPHardwareDataType | grep Model\ Identifier:').readlines()
 macModel = macModel[0].replace("Model Identifier:", "")
 macModel = macModel.strip( )
 
-cpuSpeed = cpuSpeed[0].strip( "Processor Speed: \n")
-
+# GPU Type
+gpu = os.popen('system_profiler SPDisplaysDataType | grep Chipset').readlines()
 gpu = gpu[0].strip( "Chipset Model Dynamic, Max): \n")
 
+# Vram Total
+vram = os.popen('system_profiler SPDisplaysDataType | grep VRAM').readlines()
 vram = vram[0].strip( "VRAM (Total Dynamic, Max): \n")
 
+# Local IP Address
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 localIP = s.getsockname()[0]
 s.close()
 
+# Public IP Address
 externalIP  = os.popen('curl -s ifconfig.me').readline()
-
 
 
 print("----------System-Info----------")
@@ -122,10 +119,8 @@ print()
 print("Model: "+macModel)
 print("Architecture: "+arch[0])
 print("CPU: "+processor)
-print("CPU Core Count: "+cores)
-print("CPU Speed: "+cpuSpeed)
+print("Total Memory (ram): "+totalRam)
 print("GPU: "+gpu)
-print("Total GPU Memory: "+vram)
-print("Total Memory: "+ram)
+print("Total GPU Memory (vram): "+vram)
 print()
 print("-------------------------------")
