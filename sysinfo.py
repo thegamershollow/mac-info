@@ -51,7 +51,7 @@ def macVer():
 	elif verNum == "10.15":
 		verString = "Catalina"
 	else:
-		verString = "Not running Mac OS 10"
+		verString = "Not running a version of Mac OS 10"
 	return f"Mac OS X: {verString} ({vernum})"
 
 # Architecture
