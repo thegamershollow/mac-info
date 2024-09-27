@@ -50,9 +50,19 @@ def macVer():
 		verString = "Mojave"
 	elif verNum == "10.15":
 		verString = "Catalina"
+	elif "11" in verNum:
+		verString = "Big Sur"
+	elif "12" in verNum:
+		verString = "Monteray"
+	elif "13" in verNum:
+		verString = "Ventura"
+	elif "14" in verNum:
+		verString = "Sonoma"
+	elif "15" in verNum:
+		verString = "Sequoia"
 	else:
-		verString = "Not running a version of Mac OS 10"
-	return f"Mac OS X: {verString} ({vernum})"
+		verString = "Not running a version of Mac OS"
+	return f"Mac OS Version: {verString} ({vernum})"
 
 # Architecture
 arch = platform.architecture()
